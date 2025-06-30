@@ -1,0 +1,34 @@
+server:
+  port: 8085
+  servlet:
+    context-path: /api
+
+spring:
+  application:
+    name: xin-picture-backend
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3307/xin_picture
+    username: root
+    password: mysql123
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: false
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      logic-delete-field: isDelete
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+knife4j:
+  enable: true
+  openapi:
+    title: xin-picture
+    concat: 陈宇新
+    version: 1.0
+    group:
+      default:
+        group-name: 默认分组
+        api-rule: package
+        api-rule-resources:
+          - com.chenyuxin.xinpicturebackend.controller
