@@ -4,6 +4,8 @@ server:
     context-path: /api
 
 spring:
+  profiles:
+    active: local
   application:
     name: xin-picture-backend
   datasource:

@@ -2,6 +2,7 @@ package com.chenyuxin.xinpicturebackend.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.chenyuxin.xinpicturebackend.model.dto.user.UserModifyRequest;
 import com.chenyuxin.xinpicturebackend.model.dto.user.UserQueryRequest;
 import com.chenyuxin.xinpicturebackend.model.entity.User;
 import com.chenyuxin.xinpicturebackend.model.vo.UserLoginVo;
@@ -67,4 +68,16 @@ public interface UserService extends IService<User> {
     List<UserVO> getUserVOList(List<User> userList);
 
     UserVO getUserVO(User user);
+    /**
+     * 修改用户信息
+     * @param userModifyRequest
+     * @return Boolean
+     */
+    Boolean modifyUser(UserModifyRequest userModifyRequest);
+    /**
+     * 删除用户
+     * @param userId 用户id
+     * @return Boolean
+     */
+    Boolean deleteUser(Long userId);
 }

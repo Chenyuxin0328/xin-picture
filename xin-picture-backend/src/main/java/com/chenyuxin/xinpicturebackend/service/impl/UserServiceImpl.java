@@ -5,11 +5,13 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.ObjUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.chenyuxin.xinpicturebackend.constant.UserConstant;
 import com.chenyuxin.xinpicturebackend.exception.BusinessException;
 import com.chenyuxin.xinpicturebackend.exception.ErrorCode;
 import com.chenyuxin.xinpicturebackend.mapper.UserMapper;
+import com.chenyuxin.xinpicturebackend.model.dto.user.UserModifyRequest;
 import com.chenyuxin.xinpicturebackend.model.dto.user.UserQueryRequest;
 import com.chenyuxin.xinpicturebackend.model.entity.User;
 import com.chenyuxin.xinpicturebackend.model.enums.UserRoleEnum;
@@ -217,5 +219,35 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         UserVO userVO = new UserVO();
         BeanUtil.copyProperties(user, userVO);
         return userVO;
+    }
+    /**
+     * 修改用户信息
+     * @param userModifyRequest
+     * @return Boolean
+     */
+    @Override
+    public Boolean modifyUser(UserModifyRequest userModifyRequest){
+        LambdaUpdateWrapper<User> userLambdaUpdateWrapper = new LambdaUpdateWrapper<>();
+        userLambdaUpdateWrapper.eq(User::getId,userModifyRequest.getId())
+                .set(User::getUserName,userModifyRequest.getUserName())
+                .set(User::getUserProfile,userModifyRequest.getUserProfile());
+        this.update(userLambdaUpdateWrapper);
+        return true;
+    }
+
+    /**
+     * 删除用户
+     * @param userId 用户id
+     * @return Boolean
+     */
+    @Override
+    public Boolean deleteUser(Long userId){
+        User user = this.getById(userId);
+        if(user.getUserRole().equals(UserConstant.DEFAULT_ROLE)){
+            this.removeById(userId);
+            return true;
+        }else{
+            throw new BusinessException(ErrorCode.NO_AUTH_ERROR,"无权删除");
+        }
     }
 }

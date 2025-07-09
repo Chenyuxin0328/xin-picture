@@ -2,7 +2,6 @@ package com.chenyuxin.xinpicturebackend.controller;
 
 import com.chenyuxin.xinpicturebackend.common.BaseResponse;
 import com.chenyuxin.xinpicturebackend.common.ResultUtils;
-import jdk.nashorn.internal.objects.annotations.Getter;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

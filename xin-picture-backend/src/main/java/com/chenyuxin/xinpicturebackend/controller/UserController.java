@@ -110,6 +110,10 @@ public class UserController {
         User user = response.getData();
         return ResultUtils.success(userService.getUserVO(user));
     }
+
+    /**
+     * 修改用户信息（管理员）
+     */
     @PostMapping("/update")
     @AuthCheck(mustRole = UserConstant.ADMIN_ROLE)
     public BaseResponse<Boolean> updateUser(@RequestBody UserUpdateRequest userUpdateRequest) {
@@ -137,6 +141,22 @@ public class UserController {
         userVoPage.setRecords(userVOList);
         return ResultUtils.success(userVoPage);
     }
+    /**
+     * 用户修改个人信息
+     */
+    @PostMapping("/modify")
+    public BaseResponse<Boolean> modifyUser(@Valid UserModifyRequest userModifyRequest){
+        Boolean bool = userService.modifyUser(userModifyRequest);
+        return ResultUtils.success(bool);
+    }
 
+    /**
+     * 删除用户（管理员）
+     */
+    @DeleteMapping("/{userId}")
+    public BaseResponse<Boolean> deleteUser(@PathVariable Long userId){
+        Boolean bool = userService.deleteUser(userId);
+        return ResultUtils.success(bool);
+    }
 
 }
